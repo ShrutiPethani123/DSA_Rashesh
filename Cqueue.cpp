@@ -4,6 +4,7 @@ using namespace std;
 
 int q[size];
 int front = -1, rear = -1;
+int c = 0;
 
 int isEmpty()
 {
@@ -45,6 +46,7 @@ void enqueue(int n)
             rear++;
             q[rear] = n;
         }
+        c++;
     }
 }
 
@@ -55,25 +57,29 @@ int dequeue()
     {
         cout << "Queue is Empty!!" << endl;
     }
-    else if(front == rear)
+    else if (front == rear)
     {
         n = q[front];
         cout << n << "is poped!!" << endl;
-        rear=-1;
-        front=-1;
+        rear = -1;
+        front = -1;
+        c--;
     }
     else
     {
         n = q[front];
-        if(front==size-1)
+        if (front == size - 1)
         {
-            front=0;
-        }else{
-            
+            front = 0;
+        }
+        else
+        {
+
             front++;
         }
-        
-        cout << n << "is poped!!" << endl;      
+        c--;
+
+        cout << n << "is poped!!" << endl;
     }
     return n;
 }
@@ -88,14 +94,14 @@ void display()
     {
         if (front > rear)
         {
-                for(int i=front;i<size;i++)
-                {
-                    cout<<q[i]<<" ";
-                }
-                for(int i=0;i<=rear;i++)
-                {
-                    cout<<q[i]<<" ";
-                }
+            for (int i = front; i < size; i++)
+            {
+                cout << q[i] << " ";
+            }
+            for (int i = 0; i <= rear; i++)
+            {
+                cout << q[i] << " ";
+            }
         }
         else
         {
@@ -110,6 +116,19 @@ void display()
     }
 }
 
+int peek(int n)
+{
+    if (n <= c)
+    {
+        cout << q[front + n - 1] << endl;
+    }
+    else
+    {
+        cout << "Invalid input!!" << endl;
+    }
+    return  q[front + n - 1] ;
+}
+
 int main()
 {
     int choice;
@@ -120,6 +139,7 @@ int main()
         cout << "1---Add" << endl;
         cout << "2---Display" << endl;
         cout << "3---delete" << endl;
+        cout << "4--peek" << endl;
 
         cout << "Enter your choice:";
         cin >> choice;
@@ -139,6 +159,12 @@ int main()
             break;
         case 3:
             dequeue();
+            break;
+        case 4:
+            int n1;
+            cout << "Enter a no: ";
+            cin >> n1;
+            peek(n1);
             break;
         default:
             cout << "Invalid choice!!" << endl;

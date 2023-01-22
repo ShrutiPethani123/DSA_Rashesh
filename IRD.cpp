@@ -1,6 +1,7 @@
 #include <iostream>
-#define size 5
 using namespace std;
+#define size 5
+
 
 int q[size];
 int front=-1 , rear=-1;
@@ -33,21 +34,18 @@ void enqueue(int n)
        
         
     }
-
-
 }
 
-int dequeue()
+int dequeueBeg()
 {
     int n;
     if(isEmpty())
     {
         cout<<"Queue is Empty!!"<<endl;
-    }
-    else{
+    }else{
 
         n=q[front];
-        cout<<n<<"is poped!!"<<endl;
+        cout<<n<<"is poped!!"<<endl; 
         if(front==rear)
         {
             front=-1;
@@ -59,6 +57,29 @@ int dequeue()
     }
     return n;
 
+}
+
+int dequeueEnd()
+{
+    int n;
+    if(isEmpty())
+    {
+        cout<<"Queue is Empty!!"<<endl;
+    }else{
+
+        n=q[rear];
+        cout<<n<<"is poped!!"<<endl;
+        
+        if(front==rear)
+        {
+            front=-1;
+            rear=-1;
+            return n;
+        }
+        rear--;
+
+    }
+    return n;
 }
 
 void display()
@@ -77,7 +98,6 @@ void display()
 }
 
 
-
 int main()
 {
     int choice;
@@ -87,32 +107,34 @@ int main()
         cout << "0---exit" << endl;
         cout << "1---Add" << endl;
         cout << "2---Display" << endl;
-        cout << "3---delete" << endl;
-        // cout<<"4---Peek"<<endl;
+        cout << "3---delete end" << endl;
+        cout << "4---delete begining" << endl;
 
-        cout<<"Enter your choice:";
-        cin>>choice;
+        cout << "Enter your choice:";
+        cin >> choice;
 
-        switch(choice)
+        switch (choice)
         {
-            case 0:
-                exit(0);
-            case 1:
-                int n;
-                cout<<"Enter a no: ";
-                cin>>n;
-                enqueue(n);
-                break;
-            case 2: 
-                display();
-                break;
-            case 3:
-                dequeue();
-                break;
-            
-            default:
-                cout<<"Invalid choice!!"<<endl;
-            
+        case 0:
+            exit(0);
+        case 1:
+            int n;
+            cout << "Enter a no: ";
+            cin >> n;
+            enqueue(n);
+            break;
+        case 2:
+            display();
+            break;
+        case 3:
+            dequeueEnd();
+            break;
+        case 4:
+            dequeueBeg();
+            break;
+
+        default:
+            cout << "Invalid choice!!" << endl;
         }
     }
     return 0;
