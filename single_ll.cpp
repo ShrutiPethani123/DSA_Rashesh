@@ -104,6 +104,151 @@ void delete_at_beg()
     free(tmp);
 }
 
+void search(int data)
+{
+    bool found=false;
+    if(head==NULL)
+    {
+        cout<<"list is empty"<<endl;
+    }else{
+
+        struct  node *tmp=head;
+        while(tmp!=NULL)
+        {
+            if(tmp->data==data)
+            {
+                found=true;
+                printf("found !!!!");
+                break;
+            }
+            tmp=tmp->next;
+        }
+
+        if(found==false)
+        {
+            printf("Not found!!!!");
+        }
+        
+    }
+
+}
+
+void insert_at_any_after(int data,int new_data ){
+
+    bool found=false;
+    if(head==NULL)
+    {
+        cout<<"list is empty"<<endl;
+    }else{
+        struct node *tmp=head;
+        struct node * newNode = createNode(new_data);
+
+        while(tmp!=NULL)
+        {
+            if(tmp->data==data)
+            {
+                if(tmp==last)
+                {
+                    insert_at_last(new_data);
+                    found=true;
+                    break;
+                }
+
+                newNode->next=tmp->next;
+                tmp->next=newNode;
+                found=true;
+                break;
+            }
+            tmp=tmp->next;
+        }
+        if(found==false)
+        {
+            cout<<"data not Found!!!"<<endl;
+        }
+    }
+}
+
+void insert_at_any_before(int data,int new_data)
+{
+    bool found=false;
+    if(head==NULL)
+    {
+        cout<<"list is empty"<<endl;
+    }else{
+
+        struct node *tmp=head;
+        struct node * newNode=createNode(new_data);
+
+        while(tmp!=NULL)
+        {
+            if(head->data==data)
+            {
+                insert_at_beg(new_data);
+                found=true;
+                break;
+            }
+            else if(tmp->next->data==data)
+            {
+                newNode->next=tmp->next;
+                tmp->next=newNode;
+                found = true;
+                break;
+            }
+            tmp=tmp->next;
+        }
+        if(found==false)
+        {
+            cout<<"data not Found!!!"<<endl;
+        }
+    }
+}
+
+
+void delete_any(int data)
+{
+    bool found = false;
+    if(head==NULL)
+    {
+        cout<<"list is Empty!!"<<endl;
+    }else{
+        struct node*tmp=head;
+        struct node*p=head;
+
+        while(tmp->next!=NULL)
+        {
+            if(head->data==data)
+            {
+                tmp=head;
+                cout<<tmp->data<<" deleted"<<endl; 
+                head=head->next;
+                free(tmp);                
+                found=true;
+                break;
+            }
+            else if(tmp->next->data==data)
+            {
+                p=p->next;
+                // tmp->next = tmp->next->next;
+                tmp->next=p->next;
+                cout<<p->data<<" deleted"<<endl;
+                free(p);
+                found=true;
+                break;
+            }
+            cout<<"Data: "<<tmp->data<<endl;
+            tmp=tmp->next;
+            p=p->next;
+        }
+        if(found==false)
+        {
+            cout<<"data not Found!!!"<<endl;
+        }
+    }
+
+
+}
+
+
 int main()
 {
     while (1)
@@ -116,6 +261,11 @@ int main()
         cout << "3- Delete last" << endl;
         cout << "4 - insert front" << endl;
         cout << "5 - delete front" << endl;
+        cout<< "6 - Search"<<endl;
+        cout<< "7 - Insert any After" << endl;
+        cout<< "8 - Insert any Before" << endl;
+        cout<< "9 - delete any" << endl;
+
         int choice;
         cout << "Enter a choice ";
         cin >> choice;
@@ -143,6 +293,31 @@ int main()
             break;
         case 5:
             delete_at_beg();
+            break;
+        case 6:
+            cout << "Enter data:";
+            cin >> data;
+            search(data);
+            break;
+        case 7:
+            int new_data;
+            cout << "Enter data:";
+            cin >> data;
+            cout << "Enter  new data:";
+            cin >> new_data;
+            insert_at_any_after(data,new_data);
+            break;
+        case 8:
+            cout << "Enter data:";
+            cin >> data;
+            cout << "Enter  new data:";
+            cin >> new_data;
+            insert_at_any_before(data,new_data);
+            break;
+        case 9:
+            cout<<"Enter data:";
+            cin >> data;
+            delete_any(data);
             break;
         default:
             cout << "Invalid choice" << endl;
